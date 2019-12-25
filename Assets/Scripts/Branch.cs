@@ -17,4 +17,8 @@ public class Branch
         this.destinFirst = destin1;
         this.destinSecond = destin2;
     }
+    
+    public void Print(){
+        Debug.Log(id + " branch text : " + text);
+    }
 }

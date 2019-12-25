@@ -81,7 +81,7 @@ public class OnCardDragged : MonoBehaviour
         {
             while(transform.position.x < 2000){
                 transform.position += new Vector3(2000 * Time.deltaTime , -1000 * Time.deltaTime, 0);
-                transform.rotation = Quaternion.Euler(new Vector3(0, 0, (float)((440 - transform.position.x)*0.022) + 2.2f));
+                transform.rotation = Quaternion.Euler(new Vector3(0, 0, (float)((550 - transform.position.x)*0.022)));
                 yield return new WaitForEndOfFrame();
             }
             sceneManager.SetUI(false); 
@@ -93,7 +93,7 @@ public class OnCardDragged : MonoBehaviour
         {
             while(transform.position.x > -1000){
                 transform.position -= new Vector3(2000 * Time.deltaTime , 1000 * Time.deltaTime, 0);
-                transform.rotation = Quaternion.Euler(new Vector3(0, 0, (float)((440 - transform.position.x)*0.022) + 2.2f));
+                transform.rotation = Quaternion.Euler(new Vector3(0, 0, (float)((550 - transform.position.x)*0.022)));
                 yield return new WaitForEndOfFrame();
             }
             sceneManager.SetUI(true); 

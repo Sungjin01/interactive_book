@@ -4,6 +4,16 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Networking;
 
+[System.Serializable]public class Branches
+{
+    public List<Branch> branches = new List<Branch>();
+    public string _id;
+    public string title;
+    public string author;
+    public string token;
+    public int __v; 
+}
+
 public class SceneManager : MonoBehaviour
 {
     List<int> premises = new List<int>();
@@ -21,24 +31,28 @@ public class SceneManager : MonoBehaviour
         new Destination(1, 0, 0, ""),
         new Destination(1, 0, 0, ""));
         
-        Branch branch = new Branch(1, "게임 시작, 승리하시겠습니까?", "",
-        new Destination(2, 0, 0, "예"),
-        new Destination(3, 0, 0, "아니오"));
+        // Branch branch = new Branch(1, "게임 시작, 승리하시겠습니까?", "",
+        // new Destination(2, 0, 0, "예"),
+        // new Destination(3, 0, 0, "아니오"));
 
-        Branch branch1 = new Branch(2, "승리하셨습니다. 다시하시겠습니까?", "",
-        new Destination(1, 0, 0, "yes"),
-        new Destination(0, 0, 0, "no"));
+        // Branch branch1 = new Branch(2, "승리하셨습니다. 다시하시겠습니까?", "",
+        // new Destination(1, 0, 0, "yes"),
+        // new Destination(0, 0, 0, "no"));
 
-        Branch branch2 = new Branch(3, "패배하셨습니다. 다시하시겠습니까?", "",
-        new Destination(1, 0, 0, "Yeah!!!!"),
-        new Destination(0, 0, 0, "Never!!!!"));
+        // Branch branch2 = new Branch(3, "패배하셨습니다. 다시하시겠습니까?", "",
+        // new Destination(1, 0, 0, "Yeah!!!!"),
+        // new Destination(0, 0, 0, "Never!!!!"));
+
+        StoryStatic.token = "kcaydjtHAQrvtFQu3rCNcSZIW30dJrue";
+        StartCoroutine(ServerInit("http://13.125.252.104:3000/story/"+StoryStatic.token));
 
         branches.Add(defaultBranch);
-        branches.Add(branch);
-        branches.Add(branch1);
-        branches.Add(branch2);
+        // branches.Add(branch);
+        // branches.Add(branch1);
+        // branches.Add(branch2);
     }
     void Start(){
+        
         currentBranchId = 0; // 0으로 시작
         SetUI(true);
     }
@@ -57,9 +71,27 @@ public class SceneManager : MonoBehaviour
             else
             {
                 Debug.Log("Networking Ok : "+webRequest.downloadHandler.text);
+                var book = JsonUtility.FromJson<Branches>(webRequest.downloadHandler.text);
+                branches.AddRange(book.branches);
+                Debug.Log("book go");   
+                
+                //Debug.Log(book.author + " author");
+                foreach(Branch i in book.branches){
+                    i.Print();
+                }
             }
         }
     }
+    string ObjectToJson(object obj)
+    {
+        return JsonUtility.ToJson(obj);
+    }
+
+    T JsonToOject<T>(string jsonData)
+    {
+        return JsonUtility.FromJson<T>(jsonData);
+    }
+
     Branch GetBranch(int branchId){
         foreach (Branch i in branches)
         {

@@ -57,6 +57,7 @@
      <Compile Include="Assets\Scripts\Destination.cs" />
      <Compile Include="Assets\Scripts\OnCardDragged.cs" />
      <Compile Include="Assets\Scripts\SceneManager.cs" />
+     <Compile Include="Assets\Scripts\StoryStatic.cs" />
  <Reference Include="Unity.TextMeshPro.Editor">
  <HintPath>D:/Github/interactive_book/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
  </Reference>
